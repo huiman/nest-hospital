@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "b41f0166-e7e6-4213-89ef-3139bfd8d6e1",
+		"name": "nest-hospital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21237609"
+	},
+	"item": [
+		{
+			"name": "getPatient",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"pageSize\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPatients",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"pageSize\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPatients - check validation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": \"1\",\r\n    \"pageSize\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPatient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"hospitalId\": 1,\r\n    \"firstName\": \"Shana\",\r\n    \"lastName\": \"Konopelski\",\r\n    \"birthDate\": \"1947-01-12T00:00:00.000Z\",\r\n    \"gender\": \"M\",\r\n    \"createdAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"updatedAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"deletedAt\": null,\r\n    \"createdBy\": 1,\r\n    \"updatedBy\": 1,\r\n    \"deletedBy\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPatient - check validation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hospitalId\": \"1\",\r\n    \"firstName\": \"Shana\",\r\n    \"lastName\": \"Konopelski\",\r\n    \"birthDate\": \"123456\",\r\n    \"gender\": 1,\r\n    \"createdAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"updatedAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"deletedAt\": null,\r\n    \"createdBy\": 1,\r\n    \"updatedBy\": 1,\r\n    \"deletedBy\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePatient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"hospitalId\": 1,\r\n    \"firstName\": \"Shana\",\r\n    \"lastName\": \"Konopelski\",\r\n    \"birthDate\": \"1947-01-12T00:00:00.000Z\",\r\n    \"gender\": \"M\",\r\n    \"createdAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"updatedAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"deletedAt\": null,\r\n    \"createdBy\": 1,\r\n    \"updatedBy\": 1,\r\n    \"deletedBy\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePatient - check validation",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"1\",\r\n    \"hospitalId\": 1,\r\n    \"firstName\": \"Shana\",\r\n    \"lastName\": \"Konopelski\",\r\n    \"birthDate\": \"may 2000\",\r\n    \"gender\": 1,\r\n    \"createdAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"updatedAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"deletedAt\": null,\r\n    \"createdBy\": 1,\r\n    \"updatedBy\": 1,\r\n    \"deletedBy\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletePatient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"pageSize\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/301",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						"301"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hardDeletePatient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"pageSize\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/hard/301",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						"hard",
+						"301"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchPatients",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"hospitalId\": 1,\r\n    \"firstName\": \"Shana\",\r\n    \"lastName\": \"Konopelski\",\r\n    \"birthDate\": \"1947-01-12T00:00:00.000Z\",\r\n    \"gender\": \"M\",\r\n    \"createdAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"updatedAt\": \"2023-04-13T09:44:12.956Z\",\r\n    \"deletedAt\": null,\r\n    \"createdBy\": 1,\r\n    \"updatedBy\": 1,\r\n    \"deletedBy\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/search/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchPatients - name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": {\r\n        \"contains\": \"na\"\r\n    },\r\n    \"lastName\": {\r\n        \"contains\": \"a\"\r\n    },\r\n    \"birthDate\": {\r\n        \"gt\": \"1994-06-15T00:00:00.000Z\"\r\n    },\r\n    \"gender\": \"M\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/patient/search/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patient",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

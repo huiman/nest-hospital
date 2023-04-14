@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hospital {
+  id                 Int             @id @default(autoincrement())
+  name               String
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+  createdBy          Int
+  updatedBy          Int
+  deletedBy          Int?
+  Address            Address[]
+  Email              Email[]
+  Hospital_createdby User            @relation("Hospital_createdby", fields: [createdBy], references: [id], map: "Hospital_createdby_fkey")
+  Hospital_deletedby User?           @relation("Hospital_deletedby", fields: [deletedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Hospital_deletedby_fk")
+  Hospital_updatedby User            @relation("Hospital_updatedby", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Hospital_updatedby_fk")
+  MedicalRecord      MedicalRecord[]
+  Patient            Patient[]
+  Phone              Phone[]
+  User               User[]
+
+  @@unique([name])
+}
+
+model Patient {
+  id                Int             @id @default(autoincrement())
+  hospitalId        Int
+  firstName         String
+  lastName          String
+  birthDate         DateTime?       @db.Date
+  gender            String?         @db.VarChar(1)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int
+  updatedBy         Int
+  deletedBy         Int?
+  Address           Address[]
+  Email             Email[]
+  MedicalRecord     MedicalRecord[]
+  Patient_createdby User            @relation("Patient_createdby", fields: [createdBy], references: [id], map: "Patient_createdby_fkey")
+  Patient_deletedby User?           @relation("Patient_deletedby", fields: [deletedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Patient_deletedby_fk")
+  hospital          Hospital        @relation(fields: [hospitalId], references: [id])
+  Patient_updatedby User            @relation("Patient_updatedby", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Patient_updatedby_fk")
+  Phone             Phone[]
+
+  @@unique([firstName, lastName])
+}
+
+model Address {
+  id                Int       @id @default(autoincrement())
+  hospitalId        Int
+  patientId         Int?
+  addressType       Int       @db.SmallInt
+  status            Int?      @db.SmallInt
+  organization      String?   @db.VarChar(120)
+  address           String?   @db.VarChar(400)
+  district          String?   @db.VarChar(100)
+  province          String    @db.VarChar(35)
+  postal_code       String?   @db.VarChar(5)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  deletedAt         DateTime?
+  createdBy         Int
+  updatedBy         Int
+  deletedBy         Int?
+  Address_createdby User      @relation("Address_createdby", fields: [createdBy], references: [id], map: "Address_createdby_fkey")
+  Address_updatedby User      @relation("Address_updatedby", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Address_updatedby_fk")
+  Address_deletedby User?     @relation("Address_deletedby", fields: [deletedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Address_deletedby_fk")
+  hospital          Hospital  @relation(fields: [hospitalId], references: [id])
+  patient           Patient?  @relation(fields: [patientId], references: [id])
+
+  @@unique([organization])
+}
+
+model Phone {
+  id              Int       @id @default(autoincrement())
+  hospitalId      Int
+  patientId       Int?
+  phoneType       Int       @db.SmallInt
+  status          Int?      @db.SmallInt
+  phone_no        String    @db.VarChar(35)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int
+  updatedBy       Int
+  deletedBy       Int?
+  Phone_createdby User      @relation("Phone_createdby", fields: [createdBy], references: [id], map: "Phone_createdby_fkey")
+  Phone_updatedby User      @relation("Phone_updatedby", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Phone_updatedby_fk")
+  Phone_deletedby User?     @relation("Phone_deletedby", fields: [deletedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Phone_deletedby_fk")
+  hospital        Hospital  @relation(fields: [hospitalId], references: [id])
+  patient         Patient?  @relation(fields: [patientId], references: [id])
+
+  @@unique([phone_no])
+}
+
+model Email {
+  id              Int       @id @default(autoincrement())
+  hospitalId      Int
+  patientId       Int?
+  emailType       Int       @db.SmallInt
+  status          Int?      @db.SmallInt
+  email           String?   @db.VarChar(100)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  createdBy       Int
+  updatedBy       Int
+  deletedBy       Int?
+  Email_createdby User      @relation("Email_createdby", fields: [createdBy], references: [id], map: "Email_createdby_fkey")
+  Email_updatedby User      @relation("Email_updatedby", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Email_updatedby_fk")
+  Email_deletedby User?     @relation("Email_deletedby", fields: [deletedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Email_deletedby_fk")
+  hospital        Hospital  @relation(fields: [hospitalId], references: [id])
+  patient         Patient?  @relation(fields: [patientId], references: [id])
+
+  @@unique([email])
+}
+
+model User {
+  id                      Int             @id @default(autoincrement())
+  firstName               String
+  lastName                String
+  email                   String          @unique
+  password                String
+  createdAt               DateTime        @default(now())
+  updatedAt               DateTime        @updatedAt
+  deletedAt               DateTime?
+  Address_createdby       Address[]       @relation("Address_createdby")
+  Address_deletedby       Address[]       @relation("Address_deletedby")
+  Address_updatedby       Address[]       @relation("Address_updatedby")
+  Email_createdby         Email[]         @relation("Email_createdby")
+  Email_deletedby         Email[]         @relation("Email_deletedby")
+  Email_updatedby         Email[]         @relation("Email_updatedby")
+  Hospital_createdby      Hospital[]      @relation("Hospital_createdby")
+  Hospital_deletedby      Hospital[]      @relation("Hospital_deletedby")
+  Hospital_updatedby      Hospital[]      @relation("Hospital_updatedby")
+  MedicalRecord_createdby MedicalRecord[] @relation("MedicalRecord_createdby")
+  MedicalRecord_deletedby MedicalRecord[] @relation("MedicalRecord_deletedby")
+  MedicalRecord_updatedby MedicalRecord[] @relation("MedicalRecord_updatedby")
+  Patient_createdby       Patient[]       @relation("Patient_createdby")
+  Patient_deletedby       Patient[]       @relation("Patient_deletedby")
+  Patient_updatedby       Patient[]       @relation("Patient_updatedby")
+  Phone_createdby         Phone[]         @relation("Phone_createdby")
+  Phone_deletedby         Phone[]         @relation("Phone_deletedby")
+  Phone_updatedby         Phone[]         @relation("Phone_updatedby")
+  Hospital                Hospital?       @relation(fields: [hospitalId], references: [id])
+  hospitalId              Int?
+}
+
+model MedicalRecord {
+  id                      Int       @id @default(autoincrement())
+  hospitalId              Int
+  patientId               Int
+  diagnosis               String
+  treatment               String
+  notes                   String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  deletedAt               DateTime?
+  createdBy               Int
+  updatedBy               Int
+  deletedBy               Int?
+  MedicalRecord_createdby User      @relation("MedicalRecord_createdby", fields: [createdBy], references: [id], map: "MedicalRecord_createdby_fkey")
+  MedicalRecord_updatedby User      @relation("MedicalRecord_updatedby", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "MedicalRecord_updatedby_fk")
+  MedicalRecord_deletedby User?     @relation("MedicalRecord_deletedby", fields: [deletedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "MedicalRecord_deletedby_fk")
+  hospital                Hospital  @relation(fields: [hospitalId], references: [id])
+  patient                 Patient   @relation(fields: [patientId], references: [id])
+}

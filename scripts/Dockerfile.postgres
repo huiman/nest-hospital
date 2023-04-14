@@ -1,0 +1,17 @@
+# Use the official PostgreSQL base image
+FROM postgres:latest
+
+# Set the environment variables for PostgreSQL
+ENV POSTGRES_USER=odoo
+ENV POSTGRES_PASSWORD=odoo
+ENV POSTGRES_DB=hospital
+
+# Expose the default PostgreSQL port
+EXPOSE 5432
+
+# Copy any additional initialization scripts (optional)
+# For example, if you have a custom SQL script to initialize the database, you can copy it to /docker-entrypoint-initdb.d/ directory
+# COPY ./init.sql /docker-entrypoint-initdb.d/
+
+# Start the PostgreSQL service
+CMD ["postgres"]
