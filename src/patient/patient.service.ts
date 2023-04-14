@@ -6,13 +6,11 @@ import prisma from 'src/prisma';
 export class PatientService {
 
     async getPatients (page: number, pageSize: number): Promise<Patient[]> {
-        console.log('🚀 ~ getPatients ~ pageSize:', pageSize)
-        console.log('🚀 ~ getPatients ~ page:', page)
-        const skip = (page - 1) * pageSize
-        console.log('🚀 ~ getPatients ~ skip:', skip)
+        const numPage = Number(page), numPageSize = Number(pageSize)
+        const skip = (numPage - 1) * numPageSize
         return await prisma.patient.findMany({
             skip: skip,
-            take: pageSize,
+            take: numPageSize,
             where: {
                 deletedAt: null
             }

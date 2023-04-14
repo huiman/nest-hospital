@@ -54,13 +54,23 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/patient/",
+					"raw": "{{url}}/patient/?page=2&pageSize=10",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"patient",
 						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
 					]
 				}
 			},

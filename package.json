@@ -30,6 +30,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.3.0",
     "@prisma/client": "^4.12.0",
     "@types/dockerode": "^3.3.16",
     "class-transformer": "^0.5.1",
@@ -37,7 +38,8 @@
     "dotenv": "^16.0.3",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

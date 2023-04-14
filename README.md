@@ -46,6 +46,7 @@ IMPORT "nest-hospital.postman_collection.json" to POSTMAN and test
 - dotenv
 - prisma
 - faker
+- @nestjs/swagger
 
 
 ## FURTURES IMPROVEMENT

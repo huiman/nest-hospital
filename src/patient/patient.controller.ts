@@ -29,8 +29,8 @@ export class PatientController {
 
     //get all patient
     @Get()
-    async getPatients (@Res() res, @Body() getPatientsDTO: GetPatientsDTO) {
-        const patients = await this.patientService.getPatients(getPatientsDTO.page, getPatientsDTO.pageSize)
+    async getPatients (@Res() res, @Query('page') page: number, @Query('pageSize') pageSize: number) {
+        const patients = await this.patientService.getPatients(page, pageSize)
         return res.status(HttpStatus.OK).json(patients)
     }
 
