@@ -37,9 +37,12 @@ $ yarn run start:prod
 
 ## Testing the app
 
-```bash
 IMPORT "nest-hospital.postman_collection.json" to POSTMAN and test
-```
+
+or
+
+using [swagger ui](http://localhost:3000/api)
+
 
 ## additionsal library usage
 
