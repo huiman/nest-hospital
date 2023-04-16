@@ -1,8 +1,9 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ async function bootstrap () {
   // exception filters
   // const { httpAdapter } = app.get(HttpAdapterHost)
   // app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter))
-  // app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter());
   // ValidationPipe
   app.useGlobalPipes(new ValidationPipe())
 
