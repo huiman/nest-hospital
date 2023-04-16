@@ -24,7 +24,13 @@
     "down": "yarn prisma db pull && yarn prisma generate",
     "migrate": "yarn prisma migrate dev",
     "migrate:reset": "yarn prisma migrate reset",
-    "seed": "yarn prisma db seed"
+    "seed": "yarn prisma db seed",
+    "migrate:dev": "npx prisma migrate dev",
+    "migrate:dev:create": "npx prisma migrate dev --create-only",
+    "migrate:deploy": "npx prisma migrate deploy",
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio",
+    "prisma:seed": "npx prisma db seed"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -36,6 +42,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
+    "nestjs-prisma": "^0.20.0",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",

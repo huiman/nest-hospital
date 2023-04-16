@@ -5,17 +5,28 @@ import prisma from 'src/prisma';
 @Injectable()
 export class PatientService {
 
-    async getPatients (page: number, pageSize: number): Promise<Patient[]> {
+    async getPatients (page: number, pageSize: number): Promise<{ totalPages: number, patients: Patient[] }> {
         const numPage = Number(page), numPageSize = Number(pageSize)
         const skip = (numPage - 1) * numPageSize
-        return await prisma.patient.findMany({
-            skip: skip,
-            take: numPageSize,
-            where: {
-                deletedAt: null
-            }
+        const response = await prisma.$transaction([
+            prisma.patient.count({
+                where: {
+                    deletedAt: null
+                }
+            }),
+            prisma.patient.findMany({
+                skip: skip,
+                take: numPageSize,
+                where: {
+                    deletedAt: null
+                }
 
-        })
+            })
+        ])
+        return {
+            totalPages: response[0] ?? 0,
+            patients: response[1]
+        }
     }
 
 

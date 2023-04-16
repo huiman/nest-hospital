@@ -1,9 +1,8 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Res } from '@nestjs/common';
+import { PatientDTO } from './dto/Patient.dto';
 import { PatientService } from './patient.service';
-import { Patient } from '@prisma/client';
-import { GetPatientsDTO, PatientDTO } from './dto/Patient.dto';
 
-@Controller('patient')
+@Controller('patients')
 export class PatientController {
     constructor(private patientService: PatientService) { }
 
@@ -29,9 +28,9 @@ export class PatientController {
 
     //get all patient
     @Get()
-    async getPatients (@Res() res, @Query('page') page: number, @Query('pageSize') pageSize: number) {
-        const patients = await this.patientService.getPatients(page, pageSize)
-        return res.status(HttpStatus.OK).json(patients)
+    async getPatients (@Res() res, @Query('page') page: number = 1, @Query('pageSize') pageSize: number = 10) {
+        const response = await this.patientService.getPatients(page, pageSize)
+        return res.status(HttpStatus.OK).json(response)
     }
 
     // update patient
@@ -74,7 +73,7 @@ export class PatientController {
 
     // search Patient
     @Post('/search')
-    async searchPatient (@Res() res, @Body() filter: Patient) {
+    async searchPatient (@Res() res, @Body() filter: PatientDTO) {
         const patients = await this.patientService.searchPatients(filter)
         return res.status(HttpStatus.OK).json(patients)
     }

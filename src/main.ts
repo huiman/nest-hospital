@@ -1,13 +1,20 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 dotenv.config();
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule);
+
+  // exception filters
+  // const { httpAdapter } = app.get(HttpAdapterHost)
+  // app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter))
+  // app.useGlobalFilters(new HttpExceptionFilter());
+  // ValidationPipe
+  app.useGlobalPipes(new ValidationPipe())
 
   //swagger
   const config = new DocumentBuilder()
@@ -20,6 +27,9 @@ async function bootstrap () {
 
   //ValidationPipe
   app.useGlobalPipes(new ValidationPipe())
+
+  //CORS
+  app.enableCors()
 
   await app.listen(process.env.PORT);
 }

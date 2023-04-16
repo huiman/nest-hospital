@@ -1,5 +1,5 @@
 import { Patient } from "@prisma/client";
-import { IsNumber, IsString, IsDate, IsOptional, IsDateString } from "class-validator";
+import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class PatientDTO implements Readonly<Patient>{
     @IsNumber() @IsOptional() id: number;
@@ -8,11 +8,11 @@ export class PatientDTO implements Readonly<Patient>{
     @IsString() lastName: string;
     @IsDateString() birthDate: Date;
     @IsString() gender: string;
-    @IsDateString() createdAt: Date;
-    @IsDateString() updatedAt: Date;
+    @IsDateString() @IsOptional() createdAt: Date;
+    @IsDateString() @IsOptional() updatedAt: Date;
     @IsDateString() @IsOptional() deletedAt: Date;
-    @IsNumber() createdBy: number;
-    @IsNumber() updatedBy: number;
+    @IsNumber() @IsOptional() createdBy: number;
+    @IsNumber() @IsOptional() updatedBy: number;
     @IsNumber() @IsOptional() deletedBy: number;
 }
 
