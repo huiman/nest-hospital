@@ -29,7 +29,7 @@ async function bootstrap () {
   SwaggerModule.setup('api', app, document);
 
   //ValidationPipe
-  app.useGlobalPipes(new ValidationPipe())
+  // app.useGlobalPipes(new ValidationPipe())
 
   //CORS
   app.enableCors()

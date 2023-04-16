@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { PatientDTO } from './dto/Patient.dto';
 import { PatientService } from './patient.service';
+import { Patient } from '@prisma/client';
 
 @Controller('patients')
 export class PatientController {
@@ -73,7 +74,7 @@ export class PatientController {
 
     // search Patient
     @Post('/search')
-    async searchPatient (@Res() res, @Body() filter: PatientDTO) {
+    async searchPatient (@Res() res, @Body() filter: Patient) {
         const patients = await this.patientService.searchPatients(filter)
         return res.status(HttpStatus.OK).json(patients)
     }

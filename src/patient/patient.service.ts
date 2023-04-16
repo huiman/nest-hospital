@@ -94,9 +94,17 @@ export class PatientService {
         })
     }
 
-    async searchPatients (searchPatientSchema: Patient): Promise<Patient[]> {
+    async searchPatients (searchString: Patient): Promise<Patient[]> {
         return await this.prisma.patient.findMany({
-            where: searchPatientSchema
+            where: searchString
+            // where: {
+            //     firstName: {
+            //         contains: searchString
+            //     },
+            //     lastName: {
+            //         contains: searchString
+            //     }
+            // }
         })
     }
 }
