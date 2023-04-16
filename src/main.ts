@@ -4,6 +4,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { PrismaService } from './prisma.service';
+// import { PrismaService } from 'nestjs-prisma';
 
 dotenv.config();
 
@@ -31,6 +33,10 @@ async function bootstrap () {
 
   //CORS
   app.enableCors()
+
+  //prisma service check db down
+  const prismaService = app.get(PrismaService)
+  await prismaService.enableShutdownHooks(app)
 
   await app.listen(process.env.PORT);
 }

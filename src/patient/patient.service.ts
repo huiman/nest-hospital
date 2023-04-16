@@ -1,20 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { Patient } from '@prisma/client';
-import prisma from 'src/prisma';
+// import prisma from 'src/prisma';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class PatientService {
+    constructor(private readonly prisma: PrismaService) { }
 
     async getPatients (page: number, pageSize: number): Promise<{ totalPages: number, patients: Patient[] }> {
         const numPage = Number(page), numPageSize = Number(pageSize)
         const skip = (numPage - 1) * numPageSize
-        const response = await prisma.$transaction([
-            prisma.patient.count({
+        const response = await this.prisma.$transaction([
+            this.prisma.patient.count({
                 where: {
                     deletedAt: null
                 }
             }),
-            prisma.patient.findMany({
+            this.prisma.patient.findMany({
                 skip: skip,
                 take: numPageSize,
                 where: {
@@ -29,10 +31,27 @@ export class PatientService {
         }
     }
 
-
-
     async getPatient (patientId: number): Promise<Patient> {
-        return await prisma.patient.findFirst({
+        return await this.prisma.patient.findFirst({
+            select: {
+                id: true,
+                hospitalId: true,
+                firstName: true,
+                lastName: true,
+                birthDate: true,
+                gender: true,
+                createdAt: true,
+                createdBy: true,
+                updatedAt: true,
+                updatedBy: true,
+                deletedAt: true,
+                deletedBy: true,
+                hospital: true,
+                Address: true,
+                Email: true,
+                Phone: true,
+                MedicalRecord: true
+            },
             where: {
                 id: Number(patientId),
                 deletedAt: null
@@ -43,14 +62,14 @@ export class PatientService {
     async createPatient (patientSchema: Patient): Promise<Patient> {
         const createPatientSchema = patientSchema
         delete createPatientSchema.id
-        return await prisma.patient.create(
+        return await this.prisma.patient.create(
             { data: patientSchema }
         )
     }
 
     async updatePatient (patientSchema: Patient): Promise<Patient> {
         const { id, ...updatePatientSchema } = patientSchema;
-        return await prisma.patient.update({
+        return await this.prisma.patient.update({
             where: {
                 id
             },
@@ -59,7 +78,7 @@ export class PatientService {
     }
 
     async softDeletePatient (patientId: number): Promise<Patient> {
-        return await prisma.patient.update({
+        return await this.prisma.patient.update({
             where: {
                 id: Number(patientId)
             },
@@ -68,7 +87,7 @@ export class PatientService {
     }
 
     async deletePatient (patientId: number): Promise<Patient> {
-        return await prisma.patient.delete({
+        return await this.prisma.patient.delete({
             where: {
                 id: Number(patientId)
             }
@@ -76,7 +95,7 @@ export class PatientService {
     }
 
     async searchPatients (searchPatientSchema: Patient): Promise<Patient[]> {
-        return await prisma.patient.findMany({
+        return await this.prisma.patient.findMany({
             where: searchPatientSchema
         })
     }

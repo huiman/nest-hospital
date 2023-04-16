@@ -54,5 +54,8 @@ using [swagger ui](http://localhost:3000/api)
 
 ## FURTURES IMPROVEMENT
 - versioning data in table.
+- db downed show error reponse but when the db up the nest not reconnect. need more time to fix.
+
+
 
 
