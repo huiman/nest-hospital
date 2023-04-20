@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Patient } from '@prisma/client';
 // import prisma from 'src/prisma';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class PatientService {
-    constructor(private readonly prisma: PrismaService) { }
+    private readonly logger: Logger
+    constructor(private readonly prisma: PrismaService) {
+        this.logger = new Logger(PatientService.name)
+    }
 
     async getPatients (page: number, pageSize: number): Promise<{ totalPages: number, patients: Patient[] }> {
         const numPage = Number(page), numPageSize = Number(pageSize)
